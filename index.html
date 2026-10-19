@@ -318,7 +318,7 @@ body.shake .wrap{animation:shake .5s cubic-bezier(.36,.07,.19,.97) 3}
       <p class="note" style="margin-top:0" id="famInfo"></p>
       <button class="btn ghost" id="unlinkBtn">이 기기 연결 해제</button>
     </div>
-    <div class="card set">
+    <div class="card set" id="resetCard" hidden>
       <h3>데이터 초기화</h3>
       <p class="note" style="margin-top:0">할 일, 모은 곡, 진도가 모두 지워져. 가족 모두의 화면에서 지워져.</p>
       <button class="btn ghost" id="resetBtn">모두 지우기</button>
@@ -515,6 +515,7 @@ async function connect(id,role){
   famId=id; isMom=role==="mom";
   $("famInfo").textContent="이 기기는 "+(isMom?"엄마":"아들")+" 화면으로 연결돼 있어.";
   $("famCard").hidden=!isMom;
+  $("resetCard").hidden=!isMom;
   setSync("연결하는 중…");
   sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
   var r=await sb.rpc("get_planner",{p_id:famId});
