@@ -455,8 +455,8 @@ var $=function(id){return document.getElementById(id)};
 
 /* ---------- storage ---------- */
 /* ====== 수파베이스 설정: 아래 두 줄만 바꾸면 돼 ====== */
-var SUPABASE_URL="여기에_Project_URL_붙여넣기";
-var SUPABASE_KEY="여기에_anon_또는_publishable_키_붙여넣기";
+var SUPABASE_URL="https://bqwbiftwvagnpvtuljth.supabase.co";
+var SUPABASE_KEY="sb_publishable_dAjIqLLOiDXn2Ok-zOx9Eg_HVUqI5FE";
 /* ===================================================== */
 var FAM_KEY="session-planner-family";
 var sb=null, famId=null, chan=null, saveT=null, isMom=false, pendingRemote=null, pollT=null;
@@ -537,7 +537,8 @@ function showGate(msg){
   };
 }
 (async function(){
-  if(SUPABASE_URL.indexOf("http")!==0||!window.supabase){showGate("아직 수파베이스 설정이 안 됐어. 파일 위쪽의 SUPABASE_URL과 SUPABASE_KEY를 채워 줘.");$("gGo").disabled=true;return}
+  if(SUPABASE_URL.indexOf("http")!==0){showGate("아직 수파베이스 설정이 안 됐어. 파일 위쪽의 SUPABASE_URL과 SUPABASE_KEY를 채워 줘.");$("gGo").disabled=true;return}
+  if(!window.supabase){showGate("연결 프로그램을 불러오지 못했어. 인터넷 연결을 확인하고 새로고침해 줘.");$("gGo").disabled=true;return}
   var saved=null; try{saved=JSON.parse(localStorage.getItem(FAM_KEY)||"null")}catch(e){}
   if(saved&&saved.id){try{await connect(saved.id,saved.role)}catch(e){setSync("연결 실패. 새로고침해 줘")}}
   else showGate();
